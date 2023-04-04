@@ -4,11 +4,15 @@ import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
-import { point3d } from 'Internals/Helpers'
+import { point3d, vec3_t } from 'Internals/Helpers'
 
 export interface CommonEntityOptions {
   trueColor?: string;
   colorNumber?: number;
+  /**
+   * Some entities do not have the extrusion property, such as Line and Point. The extrusion is optional and defaults to 0,0,1. It could also be left empty.
+   */
+  extrusion?: vec3_t;
   layerName?: string;
   visible?: boolean;
   lineType?: string;
@@ -25,6 +29,10 @@ export default abstract class Entity implements DxfInterface {
   visible?: boolean
   lineType?: string
   lineTypeScale?: number
+  /**
+   * Some entities do not have the extrusion property, such as Line and Point. The extrusion is optional and defaults to 0,0,1. It could also be left empty.
+   */
+  extrusion?: vec3_t
   readonly handle: string
 
   /**
@@ -44,6 +52,7 @@ export default abstract class Entity implements DxfInterface {
     this.visible = options?.visible
     this.lineType = options?.lineType
     this.lineTypeScale = options?.lineTypeScale
+    this.extrusion = options?.extrusion
   }
 
   /**
@@ -66,6 +75,12 @@ export default abstract class Entity implements DxfInterface {
     dx.colorNumber(this.colorNumber)
     dx.push(48, this.lineTypeScale)
     dx.visibilty(this.visible)
+    if (this.extrusion)
+    {
+      dx.push(210, this.extrusion.x)
+      dx.push(220, this.extrusion.y)
+      dx.push(230, this.extrusion.z)
+    }
     dx.subclassMarker(this.subclassMarker)
   }
 }
