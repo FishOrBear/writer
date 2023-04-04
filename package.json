@@ -1,11 +1,11 @@
 {
-  "name": "@tarikjabiri/dxf",
+  "name": "dxf-write",
   "version": "2.6.3",
   "description": "A JavaScript interface to Dxf written in TypeScript.",
   "main": "./lib/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
-  "repository": "https://github.com/dxfjs/writer",
+  "repository": "https://github.com/FishOrBear/writer",
   "author": "Tarik EL JABIRI",
   "license": "MIT",
   "homepage": "https://dxf.vercel.app",
