@@ -75,12 +75,12 @@ export default abstract class Entity implements DxfInterface {
     dx.colorNumber(this.colorNumber)
     dx.push(48, this.lineTypeScale)
     dx.visibilty(this.visible)
+    dx.subclassMarker(this.subclassMarker)
     if (this.extrusion)
     {
       dx.push(210, this.extrusion.x)
       dx.push(220, this.extrusion.y)
       dx.push(230, this.extrusion.z)
     }
-    dx.subclassMarker(this.subclassMarker)
   }
 }
